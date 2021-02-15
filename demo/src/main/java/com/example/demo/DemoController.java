@@ -10,6 +10,6 @@ public class DemoController {
 
 	@GetMapping
 	public ResponseEntity<Object> getDemo(){
-		return new ResponseEntity<Object>("success", HttpStatus.OK);
+		return new ResponseEntity<Object>("Success", HttpStatus.OK);
 	}
 }
