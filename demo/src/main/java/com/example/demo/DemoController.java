@@ -10,6 +10,6 @@ public class DemoController {
 
 	@GetMapping
 	public ResponseEntity<Object> getDemo(){
-		return new ResponseEntity<Object>("success", HttpStatus.OK);
+		return new ResponseEntity<Object>("success jenkins setup git for the git commit", HttpStatus.OK);
 	}
 }
