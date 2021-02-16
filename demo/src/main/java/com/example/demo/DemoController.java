@@ -11,6 +11,6 @@ public class DemoController {
 
 	@GetMapping(value = "/v1/cicd")
 	public ResponseEntity<Object> getDemo(){
-		return new ResponseEntity<Object>("ci/cd integration local success", HttpStatus.OK);
+		return new ResponseEntity<Object>("ci/cd integration success", HttpStatus.OK);
 	}
 }
