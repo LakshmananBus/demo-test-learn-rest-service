@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-	@GetMapping(value = "/v1/test/demo")
+	@GetMapping(value = "/v1/demo")
 	public ResponseEntity<Object> getDemo(){
 		return new ResponseEntity<Object>("ci/cd integration success", HttpStatus.OK);
 	}
