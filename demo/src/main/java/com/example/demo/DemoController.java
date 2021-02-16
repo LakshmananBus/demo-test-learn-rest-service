@@ -5,11 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class DemoController {
 
-	@GetMapping
+	@GetMapping(value = "/v1/test/demo")
 	public ResponseEntity<Object> getDemo(){
-		return new ResponseEntity<Object>("success jenkins setup git for the git commit", HttpStatus.OK);
+		return new ResponseEntity<Object>("ci/cd integration success", HttpStatus.OK);
 	}
 }
