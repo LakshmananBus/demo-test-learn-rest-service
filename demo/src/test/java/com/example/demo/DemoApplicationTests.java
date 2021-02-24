@@ -21,7 +21,6 @@ class DemoApplicationTests {
 	@Test
 	public void contextLoads2() {
 		System.out.println("------------------------"+"contextLoads2");
-		Assert.isTrue(false);
 	}
 
 }
