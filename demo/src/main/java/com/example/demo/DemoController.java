@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @ConfigurationProperties(prefix = "acme")
 @Validated
 @RestController
+
 public class DemoController {
 	
 	
@@ -65,7 +67,7 @@ public class DemoController {
 	}
 
 	@Value("#{${json.obj}}")
-	private String l;
+	private JSONObject propertyJsonObject;
 
 	@GetMapping(value = "/v1/pathv/{org}")
 	public ResponseEntity<Object> getDemo( @PathVariable 
@@ -85,5 +87,13 @@ public class DemoController {
 		//});
 		
 		return new ResponseEntity<Object>(mapOfList, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/v1/users")
+	public ResponseEntity<Object> getUsers(){	
+		
+	
+		
+		return new ResponseEntity<Object>(propertyJsonObject, HttpStatus.OK);
 	}
 }

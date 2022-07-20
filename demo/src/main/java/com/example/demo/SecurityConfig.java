@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	  System.out.println("--------------CONFIG----------");
     http.authorizeRequests().antMatchers("/**").authenticated().and().httpBasic();
     http.csrf().disable();
+    http.headers().frameOptions().disable();
   //  http.addFilter(new BasicAuthFilter(authManager));
   }
 
