@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Receiver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.demo</a> &gt; <span class="el_source">Receiver.java</span></div><h1>Receiver.java</h1><pre class="source lang-java linenums">package com.example.demo;
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+/*
+import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;*/
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+
+/*import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.AMQP.Connection.Close;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.Method;
+import com.rabbitmq.client.ShutdownListener;
+import com.rabbitmq.client.ShutdownSignalException;*/
+
+
+
+/**
+ * @author Lakshmanan
+ * 
+ */
+
+@Component
+<span class="fc" id="L33">public class Receiver {</span>
+
+	/*
+	 * private static final Logger logger = LoggerFactory.getLogger(Receiver.class);
+	 * private int connectionCount = 0;
+	 * 
+	 * @Value(&quot;${consumer.listener.queue}&quot;) private String queueName;
+	 * 
+	 * @Value(&quot;${diheventservice.apiKey}&quot;) private String emailpublishApiKey;
+	 * 
+	 * @Value(&quot;${diheventservice.url}&quot;) private String emailpublishUrl;
+	 * 
+	 * @Value(&quot;${communicationChannels.url}&quot;) private String userEmailUrl;
+	 * 
+	 * @Value(&quot;${communicationChannels.apikey}&quot;) private String userEmailApiKey;
+	 * 
+	 * @Value(&quot;${testMailList}&quot;) private String testMail;
+	 * 
+	 * @Value(&quot;${log.user.uri}&quot;) private String logUserUri;
+	 * 
+	 * @Value(&quot;${log.user.apiKey}&quot;) private String logUserApiKey;
+	 * 
+	 * @Autowired Service service;
+	 * 
+	 * public Receiver() { // setting this so that we only add 1 ShutdownListener to
+	 * the // connection. connectionCount = 1; }
+	 * 
+	 * @RabbitListener(queues = &quot;${consumer.listener.queue}&quot;) public void
+	 * receiveMessage(com.rabbitmq.client.Channel myChannel, String message) throws
+	 * ListenerException { logger.info( &quot;=======Receiver.receiveMessage()======&gt;&gt;&gt;&quot;
+	 * + message ); long startTime = System.nanoTime(); // Default coding event
+	 * listener if (connectionCount == 1) { // Need to get the connection so we can
+	 * add a shutdown listener so // we can log out if/when a shutdown to a listener
+	 * occurs Connection con = myChannel.getConnection(); addShutdownListener(con);
+	 * connectionCount++; } eventProcess(message); long endTime = System.nanoTime();
+	 * long duration = endTime - startTime; logger.info(
+	 * &quot;Total time of service call = &quot; + duration / ListenerConstants.TOTAL_TIME);
+	 * 
+	 * }
+	 * 
+	 * void addShutdownListener(Connection con){ con.addShutdownListener(new
+	 * ShutdownListener() { public void shutdownCompleted(ShutdownSignalException
+	 * cause) { connectionCount = 1;
+	 * logger.info(&quot;Connection to the listener was closed.  Cause = &quot; +
+	 * shutdownListenerError(cause)); } }); }
+	 * 
+	 * String shutdownListenerError(ShutdownSignalException cause){ logger.info(
+	 * &quot;Receiver:::shutdownListenerError():::Begin&quot;); String reasonText =
+	 * &quot;The Channel was unexpectedly closed&quot;; if (cause.isHardError()) { if
+	 * (!cause.isInitiatedByApplication()) { Method reason = cause.getReason(); if
+	 * (reason == null) { reasonText = cause.getMessage(); } else { if
+	 * (&quot;connection.close&quot;.equals(reason.protocolMethodName())){
+	 * AMQP.Connection.Close connClose = (Close) reason; reasonText =
+	 * connClose.getReplyText(); } else { AMQP.Channel.Close channelClose =
+	 * (com.rabbitmq.client.AMQP.Channel.Close) reason; reasonText =
+	 * channelClose.getReplyText(); } } } } return reasonText; }
+	 * 
+	 * void eventProcess(String message){ logger.info(
+	 * &quot;Receiver:::eventProcess():::Begin&quot;); List&lt;EmailAddresses&gt; emailAddressesList
+	 * = new ArrayList&lt;&gt;(); List&lt;String&gt; testMailList =
+	 * Arrays.asList(testMail.split(&quot;:&quot;)); EventMessage eventMessage = null;
+	 * ListenerInterface listenerInterface = new ListenerInterface(); String[]
+	 * eventTypeIdList = ListenerConstants.EVENT_TYPE_ID.split(&quot;:&quot;); HttpMethod
+	 * httpMethod = HttpMethod.POST; try { eventMessage = new
+	 * ObjectMapper().readValue(listenerInterface.convertJsonNode(message).toString(
+	 * ),EventMessage.class); service.logUserDetails(logUserUri,eventMessage,
+	 * logUserApiKey,httpMethod);
+	 * eventMessage.setEventTypeId(Integer.parseInt(eventTypeIdList[0]));
+	 * testMailList.forEach(email -&gt; emailAddressesList.add(new
+	 * EmailAddresses(email)));
+	 * eventMessage.getEventData().setEmailAddresses(emailAddressesList);
+	 * service.sendEmail(emailpublishUrl,eventMessage, emailpublishApiKey,
+	 * httpMethod); httpMethod = HttpMethod.GET; JSONObject userDetails =
+	 * service.getUserEmail(userEmailUrl,eventMessage,userEmailApiKey, httpMethod);
+	 * CommunicationChannelsResponse communicationChannelsResponse = new
+	 * ObjectMapper().readValue(userDetails.toString(),CommunicationChannelsResponse
+	 * .class); emailAddressesList.clear(); emailAddressesList.add(new
+	 * EmailAddresses(communicationChannelsResponse.getInformation().
+	 * getCommunicationChannels().getEmailPreferences().get(0).getChannelValue()));
+	 * httpMethod = HttpMethod.POST;
+	 * eventMessage.setEventTypeId(Integer.parseInt(eventTypeIdList[1]));
+	 * eventMessage.getEventData().setEmailAddresses(emailAddressesList);
+	 * service.apiCall(new
+	 * ObjectMapper().readValue(listenerInterface.convertJsonNode(new
+	 * ObjectMapper().writeValueAsString(eventMessage)).toString(),JSONObject.class)
+	 * , httpMethod, emailpublishUrl, emailpublishApiKey); } catch (Exception e) {
+	 * logger.error( &quot;Receiver:::eventProcess():::Exception Occured : &quot; + e ); } }
+	 */}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

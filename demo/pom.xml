@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
-<packaging>jar</packaging> 
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
-	<dependencies>		
-	<dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-tomcat</artifactId>
-   <scope>provided</scope>
-</dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -33,7 +34,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -61,102 +62,84 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
-<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-<dependency>
-    <groupId>com.googlecode.json-simple</groupId>
-    <artifactId>json-simple</artifactId>
-    <version>1.1</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb -->
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 
 	</dependencies>
-	
+
 
 	<build>
-	<finalName>${artifactId}</finalName>
+		<finalName>${artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<profiles>
-			<profile>
-            <id>coverage</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>${jacoco.agent.ut.arg}</argLine>
-                            <!-- Specific to generate mapping between tests and covered code -->
-                            <properties>
-                                <property>
-                                    <name>demo</name>
-                                    <value>org.sonar.java.jacoco.JUnitListener</value>
-                                </property>
-                            </properties>
-                            <!-- test failure ignore -->
-                            <testFailureIgnore>true</testFailureIgnore>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>-Xmx1024m -XX:MaxPermSize=256m ${jacoco.agent.it.arg}
-                            </argLine>
-                            <!-- Specific to generate mapping between tests and covered code -->
-                            <properties>
-                                <property>
-                                    <name>listener</name>
-                                    <value>org.sonar.java.jacoco.JUnitListener</value>
-                                </property>
-                            </properties>
-                            <!-- Let's put failsafe reports with surefire to have access to tests 
-                                failures/success reports in sonar -->
-                            <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco.version}</version>
-                        <executions>
-                            <!-- Prepares a variable, jacoco.agent.ut.arg, that contains the info 
-                                to be passed to the JVM hosting the code being tested. -->
-                            <execution>
-                                <id>prepare-ut-agent</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <destFile>${sonar.jacoco.reportPath}</destFile>
-                                    <propertyName>jacoco.agent.ut.arg</propertyName>
-                                    <append>true</append>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.codehaus.sonar-plugins.java</groupId>
-                    <artifactId>sonar-jacoco-listeners</artifactId>
-                    <version>${sonar-jacoco-listeners.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-		</profiles>	
-			
+
 		</plugins>
 	</build>
+	<profiles>
+	<profile>
 
+		<id>coverage</id>
+
+		<build>
+
+			<plugins>
+
+				<plugin>
+
+					<groupId>org.jacoco</groupId>
+
+					<artifactId>jacoco-maven-plugin</artifactId>
+
+					<version>0.8.5</version>
+
+					<configuration>
+
+						<destfile>${project.artifactId}/target/jacoco.exec</destfile>
+
+					</configuration>
+
+					<executions>
+
+						<execution>
+
+							<id>prepare-agent</id>
+
+							<goals>
+
+								<goal>prepare-agent</goal>
+							</goals>
+
+						</execution>
+
+						<execution>
+
+							<id>report</id>
+
+							<goals>
+
+								<goal>report</goal>
+
+							</goals>
+
+						</execution>
+
+					</executions>
+
+				</plugin>
+
+			</plugins>
+
+		</build>
+
+	</profile>
+</profiles>
 </project>
