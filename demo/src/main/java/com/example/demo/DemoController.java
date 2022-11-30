@@ -98,7 +98,7 @@ public class DemoController {
 		return new ResponseEntity<Object>(propertyJsonObject, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/v1//user/login/time")
+	@GetMapping(value = "/v1/user/login/time")
 	public ResponseEntity<Object> getTime(){				
 		return new ResponseEntity<Object>(LocalDateTime.now(), HttpStatus.OK);
 	}
