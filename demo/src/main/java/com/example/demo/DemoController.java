@@ -67,9 +67,6 @@ public class DemoController {
 		return testmap;
 	}
 
-	@Value("#{${json.obj}}")
-	private JSONObject propertyJsonObject;
-
 	@GetMapping(value = "/v1/pathv/{org}")
 	public ResponseEntity<Object> getDemo( @PathVariable 
 			@Size(max = 2, min = 1, message = "path should 1 t0 2") 
@@ -90,12 +87,12 @@ public class DemoController {
 		return new ResponseEntity<Object>(mapOfList, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/v1/users")
-	public ResponseEntity<Object> getUsers(){	
-		
+	@Autowired
+	UserDao dao;
 	
-		
-		return new ResponseEntity<Object>(propertyJsonObject, HttpStatus.OK);
+	@GetMapping(value = "/v1/users")
+	public ResponseEntity<Object> getUsers(){					
+		return new ResponseEntity<Object>(dao.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/v1/user/login/time")

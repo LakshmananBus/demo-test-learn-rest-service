@@ -39,9 +39,16 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -85,61 +92,61 @@
 		</plugins>
 	</build>
 	<profiles>
-	<profile>
+		<profile>
 
-		<id>coverage</id>
+			<id>coverage</id>
 
-		<build>
+			<build>
 
-			<plugins>
+				<plugins>
 
-				<plugin>
+					<plugin>
 
-					<groupId>org.jacoco</groupId>
+						<groupId>org.jacoco</groupId>
 
-					<artifactId>jacoco-maven-plugin</artifactId>
+						<artifactId>jacoco-maven-plugin</artifactId>
 
-					<version>0.8.5</version>
+						<version>0.8.5</version>
 
-					<configuration>
+						<configuration>
 
-						<destfile>${project.artifactId}/target/jacoco.exec</destfile>
+							<destfile>${project.artifactId}/target/jacoco.exec</destfile>
 
-					</configuration>
+						</configuration>
 
-					<executions>
+						<executions>
 
-						<execution>
+							<execution>
 
-							<id>prepare-agent</id>
+								<id>prepare-agent</id>
 
-							<goals>
+								<goals>
 
-								<goal>prepare-agent</goal>
-							</goals>
+									<goal>prepare-agent</goal>
+								</goals>
 
-						</execution>
+							</execution>
 
-						<execution>
+							<execution>
 
-							<id>report</id>
+								<id>report</id>
 
-							<goals>
+								<goals>
 
-								<goal>report</goal>
+									<goal>report</goal>
 
-							</goals>
+								</goals>
 
-						</execution>
+							</execution>
 
-					</executions>
+						</executions>
 
-				</plugin>
+					</plugin>
 
-			</plugins>
+				</plugins>
 
-		</build>
+			</build>
 
-	</profile>
-</profiles>
+		</profile>
+	</profiles>
 </project>
